@@ -1,18 +1,12 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response } from "express";
 
 import UserList from "../Models/MUsers";
 
-interface IUserPassword extends Object {
-  UserName: string;
-  Password: string;
-}
-
-interface CustomReq<T> extends Request {
-  body: T;
-}
+import IUserEntity from "../Interfaces/IUserEntity";
+import CustomReq from "../Interfaces/CustomReq";
 
 const AddUserController = (
-  req: CustomReq<IUserPassword>,
+  req: CustomReq<IUserEntity>,
   res: Response,
   next: NextFunction
 ) => {
@@ -21,4 +15,4 @@ const AddUserController = (
   res.redirect("/");
 };
 
-export { IUserPassword, AddUserController };
+export { AddUserController };

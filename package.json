@@ -4,9 +4,12 @@
   "private": true,
   "description": "",
   "scripts": {
-    "start": "npm-run-all --parallel front-end back-end ",
-    "back-end": "cd ./back-end/ && npm start",
-    "front-end": "cd ./front-end/ && npm start"
+    "install": "npm-run-all --parallel install-front-end install-back-end",
+    "start": "npm-run-all --parallel start-front-end start-back-end",
+    "install-back-end": "cd ./back-end/ && npm install",
+    "install-front-end": "cd ./front-end/ && npm install",
+    "start-back-end": "cd ./back-end/ && npm start",
+    "start-front-end": "cd ./front-end/ && npm start"
   },
   "repository": {
     "type": "git",

@@ -6,4 +6,5 @@ const UserRoute = Router();
 
 UserRoute.get("/", AddUser);
 
+
 export default UserRoute;

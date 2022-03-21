@@ -1,0 +1,9 @@
+{
+  "short_name": "Js Shop",
+  "name": "Js Stack Shop",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

@@ -7,7 +7,7 @@ A Simple JS Stack Shop (NodeJS/React)
 You can easily install dependencies in root project with:
 
 ```bash
-npm run install
+npm install
 ```
 
 ## Run (Again Stay At Root)

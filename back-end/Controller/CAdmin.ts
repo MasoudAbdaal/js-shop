@@ -11,8 +11,13 @@ const AddUserController = (
   next: NextFunction
 ) => {
   const User = new UserList();
-  User.AddUser(req.body);
-  res.redirect("/");
+  const Status =
+    User.AddUser(req.body) || "Sth went wrong while adding your user";
+
+  return res.send(Status);
+
+  //TODO: If craete user has been successfull, redirect to succeed page
+  // res.redirect("/");
 };
 
 export { AddUserController };

@@ -5,12 +5,12 @@ import { v5 } from "uuid";
 import IUserEntity from "../Interfaces/IUserEntity";
 
 class UsersList {
-  fileExist: boolean;
-  filePath: string;
+  FileExist: boolean;
+  FilePath: string;
 
   constructor() {
-    this.filePath = "./UserData.json";
-    this.fileExist = existsSync(this.filePath);
+    this.FilePath = "../UserData.json";
+    this.FileExist = existsSync(this.FilePath);
   }
 
   AddUser(newUser: IUserEntity) {
@@ -19,15 +19,19 @@ class UsersList {
       "YYYY-MM-DD HH:MM:SS"
     );
 
-    if (this.fileExist) {
-      readFile(this.filePath, (e, data) => {
+    if (this.FileExist) {
+      readFile(this.FilePath, (e, data) => {
         if (e === null) {
           const fileContent = JSON.parse(data.toString()) as Array<IUserEntity>;
           fileContent.push(newUser);
-          this.WriteToFile(this.filePath, fileContent);
-        } else throw e;
+          this.WriteToFile(this.FilePath, fileContent);
+          return newUser;
+        } else return e;
       });
-    } else this.WriteToFile(this.filePath, [newUser]);
+    } else {
+      this.WriteToFile(this.FilePath, [newUser]);
+      return newUser;
+    }
   }
 
   EditUser() {}

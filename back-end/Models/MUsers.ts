@@ -5,6 +5,7 @@ import moment from "moment";
 import path from "path";
 
 import IUserEntity from "../Interfaces/IUserEntity";
+import { userInfo } from "os";
 
 class UsersList {
   FileExist: boolean;
@@ -33,7 +34,7 @@ class UsersList {
       .utc(new Date().toUTCString())
       .format("YYYY-MM-DD H:m:s");
 
-    //TODO: Overwrite this lines using new property Users
+    //TODO: Add new properties to user entiti like (PhoneNumber, etc...)
     const fileContent = this.Users();
     if (fileContent && typeof fileContent !== "string") {
       fileContent.push(newUser);
@@ -45,7 +46,31 @@ class UsersList {
     }
   }
 
-  EditUser() {}
+  EditUser(User: IUserEntity): IUserEntity {
+    console.debug(User);
+    const TargetUser = User ? this.FetchUser(User.ID) : undefined;
+
+    if (TargetUser) {
+      const AllUsers = this.Users();
+
+      if (AllUsers && typeof AllUsers !== "string") {
+        AllUsers.forEach((u) => {
+          if (u.ID === TargetUser.ID) {
+            u.Email = User.Email;
+            u.Password = User.Password;
+            u.UserName = User.UserName;
+            u.ModificationDate = moment
+              .utc(new Date().toUTCString())
+              .format("YYYY-MM-DD H:m:s");
+          }
+        });
+        console.debug(AllUsers.find((z) => z.ID === User.ID));
+        this.WriteToFile(this.FilePath, AllUsers);
+        return this.FetchUser(User.ID);
+      }
+    }
+    return {} as IUserEntity;
+  }
 
   GetAllUsers(): Array<IUserEntity> {
     const AllUsers = this.Users();

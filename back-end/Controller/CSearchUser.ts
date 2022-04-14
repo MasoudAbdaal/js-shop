@@ -15,4 +15,4 @@ const SearchUserController = (
   }
 };
 
-export { SearchUserController };
+export default SearchUserController;

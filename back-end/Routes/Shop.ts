@@ -7,8 +7,7 @@ import AddUser from "../Controller/CShop";
 const UserRoute = Router();
 
 UserRoute.get("/", AddUser);
-
 UserRoute.get("/users/:id", SearchUserController);
-UserRoute.post("/users/edit", EditUserController);
+UserRoute.patch("/users/edit", EditUserController);
 
 export default UserRoute;

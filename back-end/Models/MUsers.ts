@@ -5,7 +5,6 @@ import moment from "moment";
 import path from "path";
 
 import IUserEntity from "../Interfaces/IUserEntity";
-import { userInfo } from "os";
 
 class UsersList {
   FileExist: boolean;
@@ -15,6 +14,8 @@ class UsersList {
   constructor() {
     this.FilePath = path.join(__dirname, "../UserData.json");
     this.FileExist = existsSync(this.FilePath);
+
+    //TODO: Make a realable, high performance code for detect and return errors while reading users from file
     this.Users = () => {
       try {
         if (this.FileExist) {
@@ -29,7 +30,11 @@ class UsersList {
   }
 
   AddUser(newUser: IUserEntity) {
-    newUser.ID = v5(newUser.UserName, "67ce8d95-6b86-416f-aea2-655f56825829");
+    newUser.ID = v5(
+      newUser.UserName + moment.utc(new Date().toUTCString()),
+      "67ce8d95-6b86-416f-aea2-655f56825829"
+    );
+
     newUser.CreationDate = moment
       .utc(new Date().toUTCString())
       .format("YYYY-MM-DD H:m:s");
@@ -47,7 +52,6 @@ class UsersList {
   }
 
   EditUser(User: IUserEntity): IUserEntity {
-    console.debug(User);
     const TargetUser = User ? this.FetchUser(User.ID) : undefined;
 
     if (TargetUser) {
@@ -64,7 +68,7 @@ class UsersList {
               .format("YYYY-MM-DD H:m:s");
           }
         });
-        console.debug(AllUsers.find((z) => z.ID === User.ID));
+        // console.debug(AllUsers.find((z) => z.ID === User.ID));
         this.WriteToFile(this.FilePath, AllUsers);
         return this.FetchUser(User.ID);
       }
@@ -84,8 +88,14 @@ class UsersList {
     //   readFileSync(this.FilePath, "utf8")
     // ) as Array<IUserEntity>;
     const Users = this.Users();
+
     if (Users && typeof Users !== "string") {
-      return Users.find((z) => z.ID == UserId && z) || ({} as IUserEntity);
+      console.debug(
+        Users[10],
+        UserId,
+        Users.find((z) => z.ID === UserId && z) || ({} as IUserEntity)
+      );
+      return {} as IUserEntity;
     } else {
       console.debug("Error While Calling Method FetchUser()", Users);
       return {} as IUserEntity;
@@ -106,7 +116,7 @@ class UsersList {
       Path,
       JSON.stringify(Content),
       "utf8",
-      (err) => err && console.debug(err)
+      (err) => err && console.debug("Error while writing file ", err)
     );
   }
 }

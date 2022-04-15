@@ -10,8 +10,9 @@ const EditUserController = (
   next: NextFunction
 ) => {
   const Users = new UsersList();
-  //TODO: undifenied request body resolve!
   console.debug(req.body);
+
+  ///TODO: trim all rquest body key/values
   const EditedUser = Users.EditUser(req.body);
 
   if (EditedUser.ID && EditedUser.ID !== "") {

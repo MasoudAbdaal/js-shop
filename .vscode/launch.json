@@ -13,13 +13,14 @@
       "sourceMaps": true,
       "skipFiles": ["<node_modules>/**"],
       "console": "integratedTerminal",
-      "program": "${workspaceFolder}\\App.ts",
+      "program": "${workspaceFolder}\\back-end\\App.ts",
+      // "program": "${workspaceFolder}\\App.ts",
       "resolveSourceMapLocations": [
         "!**/node_modules/**",
         "!node:internal/**",
-        "${workspaceFolder}/**",
+        "${workspaceFolder}/back-end/**"
       ],
-      "outFiles": ["${workspaceFolder}/**/*.ts"]
+      "outFiles": ["${workspaceFolder}/back-end/**/*.ts"]
     }
   ]
 }

@@ -1,4 +1,12 @@
-b {
-  color: red;
-  font-size: larger;
+.layout-header {
+  border-radius: 16px;
+  background: linear-gradient(
+    184deg,
+    rgba(66, 39, 90, 1) 0%,
+    rgba(115, 75, 109, 1) 100%
+  );
+}
+.layout-icon {
+  color: white;
+  margin: auto 16px;
 }
